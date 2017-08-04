@@ -1,0 +1,10 @@
+Feature: Counterpoint
+
+Scenario: punctum contra punctum
+
+GIVEN a note with a pitch of<pitch> and a duration of <duration>
+WHEN the note is played
+THEN another note is played also
+AND its duration is <duration>
+AND its pitch is in the range <consonants>
+
