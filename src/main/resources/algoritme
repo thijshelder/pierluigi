@@ -1,0 +1,20 @@
+Gegeven een tenor
+when een bepaalde tik wordt bereikt
+dan wordt contrapunt bij de tenor bepaald
+
+Algoritmetje
+Gegeven het moment
+ - dat wordt een beatevent en is voor ons niet van belang, wij zien het als gegeven.
+ bepaal of het huidig interval consonant of dissonant is
+ bepaal of de tenor verandert
+    (als dat zo is,
+        - bepaal de toonsafstand die de tenor verandert
+         - als tenor meer dan 1 stap verandert, dan verander niet.
+        - bepaal nieuw interval
+
+        - als 1 stap,
+        - als consonant
+        - als interval perfect, verander niet of ga in tegenbeweging
+        - als interval inperfect, doe niets of doe ook een stap in willekeurige richting
+        -
+
