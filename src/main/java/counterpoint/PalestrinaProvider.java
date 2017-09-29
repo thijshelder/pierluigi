@@ -1,5 +1,6 @@
 package counterpoint;
 
+import common.Note;
 import utilities.MathUtils;
 
 import static counterpoint.PunctumContraPunctum.consonants;
@@ -9,32 +10,38 @@ import static counterpoint.PunctumContraPunctum.consonants;
  */
 public class PalestrinaProvider {
 
+
     int noOfVOices;
-    int presentPitchTenor;
-    int presentPitchAccomp;
+    Note presentNoteTenor;
+    Note presentNoteAccomp;
     int presentInterval;
-    int newPitchTenor;
-    int newPitchAccomp;
+    Note newTenor;
     boolean isPerfect;
+    Tonality tonality;
 
-
-    public boolean determineInitialSonance()
+    public PalestrinaProvider(Tonality tonality)
     {
-       return determineSonance(presentPitchTenor,presentPitchAccomp);
+        this.tonality  = tonality;
     }
-    public boolean determineSonance(int pitch1, int pitch2 )
+
+    public boolean determineInitialConSonance()
     {
-        presentInterval = (pitch1 - pitch2)%12;
+       return determineSonance(presentNoteTenor,presentNoteAccomp);
+    }
+
+    public boolean determineSonance(Note note1, Note note2 )
+    {
+        presentInterval = (note1.getPitch() - note2.getPitch())%12;
         if(presentInterval == 0||presentInterval==7||presentInterval==-5)
         {
             isPerfect = true;
         }
-        return (MathUtils.isElementOf(presentInterval, consonants));
+        return (MathUtils.isElementOf(presentInterval%12, HarmonicConsonants.consonants));
     }
 
     public boolean step()
     {
-        if((Math.abs(presentPitchTenor - newPitchTenor))>2)
+        if((Math.abs(presentNoteTenor.getPitch() - newTenor.getPitch()))>2)
         {
             return false;
         }
@@ -46,8 +53,24 @@ public class PalestrinaProvider {
 
     public int getNewInterval()
     {
-       return (presentPitchAccomp - newPitchTenor );
+       return (presentNoteAccomp.getPitch() - newTenor.getPitch() );
     }
+
+    public Note createMelodicStepMovement(Note note)
+    {
+        Note note2 = presentNoteAccomp;
+        if(presentNoteTenor.getPitch() - newTenor.getPitch() < 0)
+        {
+            note2 = tonality.stepInterval(note2, 1);
+        }
+        else
+        {
+        note2 = tonality.stepInterval(note2, -1);
+        }
+
+        return note2;
+    }
+
 
 
 }

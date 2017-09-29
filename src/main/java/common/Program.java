@@ -21,9 +21,11 @@ public class Program {
 		ArrayList<int[]> patternList = new ArrayList<int[]>();
 
 	//	for(int i= 1;i<Integer.parseInt(args[0]);i++)
-        for(int i =0;i<3;i++)
-        {
-            provider.addVoice(new Voice(tonality, PatternLibrary.getPattern(new Random().nextInt(PatternLibrary.getLength())), false));
+        for(int i =0;i<2;i++)
+        {boolean acc = false;
+        	if(i>0)
+			{acc = true;}
+            provider.addVoice(new Voice(tonality, PatternLibrary.getPattern(new Random().nextInt(PatternLibrary.getLength())), acc));
         }
 
 
