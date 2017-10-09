@@ -15,7 +15,7 @@ public class Voice implements IBeatListener
 	Note note_now_playing;
 	boolean changable;
 	int pitch; 
-	int velocity = 100;
+	int velocity = 75;
 	int duration = 1;
 	Tonality mytonality;
 	int numberOfPulse = 1;
@@ -33,9 +33,9 @@ public class Voice implements IBeatListener
 		mytonality = tonality;
 		this.pattern = pattern;
 		MidiHandler.openMidiHandler();
-		MidiHandler.chProgramChange(1, 1);
-		MidiHandler.chProgramChange(1, 0);
-		MidiHandler.chProgramChange(1, 2);
+		MidiHandler.chProgramChange(11, 1);
+		MidiHandler.chProgramChange(12, 0);
+		MidiHandler.chProgramChange(16, 2);
 		PunctumContraPunctum.setTonality(mytonality);
 		TonalUtilities.setTonality(mytonality);
 		firstNote();
@@ -75,16 +75,14 @@ public class Voice implements IBeatListener
 
 
 	public int contemplateChange(int channelno)
-
 	{
 	    int sumOfPattern = MathUtils.getSumOfArray(pattern);
 	    System.out.println("sum of pattern is" + sumOfPattern);
 		if (numberOfPulse==sumOfPattern)
 		{   numberOfPulse = 0;
 		    numberOfChanges = 0;
-		    int decider  =new Random().nextInt(PatternLibrary.getLength());
-		    changePattern(decider);
-		    System.out.println("patternchange for voice " + this.name + " naar pattern "+ decider );
+		    changePattern(new Random().nextInt(PatternLibrary.getLength()));
+		    System.out.println("patternchange for voice " + this.name + " naar pattern ");
 		}
 		
 		int  notevalue = pattern[(Math.min(Math.max(0, numberOfChanges),pattern.length-1))];

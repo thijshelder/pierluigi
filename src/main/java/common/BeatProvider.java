@@ -10,8 +10,6 @@ import rhythmEngine.RhythmEngine;
 
 public final class BeatProvider 
 {
-	//observer pattern and we know it
-	
 	Timer timer = new Timer();
 	protected BeatTask task = new BeatTask();
 	List<Voice> voices = new ArrayList<Voice>();
@@ -30,12 +28,7 @@ public final class BeatProvider
 	
 	public void makeTick()
 	{
-		//code to periodically send a pulse of some sort. An event would be awesome
-		
-		{
 		timer.schedule(task, 0, rhythmEngine.TimeSignature.determineSmallestTime(120,4,16));
-		}
-	
 	}
 	
 	public void stopIt()
