@@ -16,6 +16,7 @@ public class Tonality
 	Note subDominant;
 	Mode tonality;
 	int lowest_note_Value= 30;
+	int highest_note_value = 70;
 	
 	public Tonality(List<Note> notes)
 	{

@@ -36,11 +36,11 @@ public final class MathUtils
 		{
 			if(i==in)
 			{
-				yup = true;
+				return true;
 			}
-
 		}
 		return yup;
+
 	}
 }
 

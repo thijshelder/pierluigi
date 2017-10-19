@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import counterpoint.PunctumContraPunctum;
-import counterpoint.TonalUtilities;
-import counterpoint.Tonality;
+import counterpoint.*;
 import player.MidiHandler;
 import rhythmEngine.PatternLibrary;
 import utilities.MathUtils;
@@ -17,7 +15,7 @@ public class Voice implements IBeatListener
 	Note note_now_playing;
 	boolean changable;
 	int pitch; 
-	int velocity = 100;
+	int velocity = 75;
 	int duration = 1;
 	Tonality mytonality;
 	int numberOfPulse = 1;
@@ -35,15 +33,15 @@ public class Voice implements IBeatListener
 		mytonality = tonality;
 		this.pattern = pattern;
 		MidiHandler.openMidiHandler();
-		MidiHandler.chProgramChange(1, 1);
-		MidiHandler.chProgramChange(1, 0);
-		MidiHandler.chProgramChange(1, 2);
+		MidiHandler.chProgramChange(68, 1);
+		MidiHandler.chProgramChange(67, 0);
+		MidiHandler.chProgramChange(69, 2);
+		MidiHandler.chProgramChange(73,3);
 		PunctumContraPunctum.setTonality(mytonality);
 		TonalUtilities.setTonality(mytonality);
 		firstNote();
 		Voice.setNoOfVoices();
 		name = "voice" +Voice.noOfVoices;
-
 	}
 
     private static void setNoOfVoices()
@@ -77,22 +75,20 @@ public class Voice implements IBeatListener
 
 
 
-	public int contemplateChange(int channelno)
-
+	public synchronized int contemplateChange(int channelno)
 	{
 	    int sumOfPattern = MathUtils.getSumOfArray(pattern);
-		if (numberOfPulse==sumOfPattern)
+	   	if (numberOfPulse==sumOfPattern)
 		{   numberOfPulse = 0;
 		    numberOfChanges = 0;
-		    int decider  =new Random().nextInt(PatternLibrary.getLength());
-		    changePattern(decider);
-		    System.out.println("patternchange for voice " + this.name + " naar pattern "+ decider );
+		    changePattern(new Random().nextInt(PatternLibrary.getLength()));
+		    System.out.println("patternchange for voice " + this.name + " naar pattern ");
 		}
 		
 		int  notevalue = pattern[(Math.min(Math.max(0, numberOfChanges),pattern.length-1))];
 		//System.out.println(" present  notevalue is  " + " "+ notevalue + "voor " + name);
 		note_now_playing.setDuration(notevalue);
-		boolean change = (note_now_playing.getDuration()==duration);
+		boolean change = (note_now_playing.getDuration()<=duration);
 		if(change)
 			{
 			System.out.println(numberOfChanges);
@@ -100,32 +96,16 @@ public class Voice implements IBeatListener
 			Note note = note_now_playing;
 			
 				if(!accompagnement)
-					{switch(new Random().nextInt(3) )
-					{
-					case 0: note_now_playing = note;
-							break;
-					case 1: note_now_playing = mytonality.stepInterval(note, 1);
-							break;
-					case 2: note_now_playing = mytonality.stepInterval(note, -1);
-							break;
-							
-					case 3: note_now_playing = mytonality.stepInterval(note, -4);
-							break;
-					case 4: note_now_playing = mytonality.stepInterval(note, 5);
-							break;
-					default: note_now_playing  = mytonality.stepInterval(note,MathUtils.getRandomPosOrNeg(-6, 7));}
-					 }
+                {
+                    note_now_playing = MelodicOperation.randomMelodic(note,mytonality);
+                }
 					
 				else
 					{
-					note_now_playing = PunctumContraPunctum.makeCounterpoint(punctumContra);
+					note_now_playing = new PunctumContraPunctum(mytonality).createCounterpoint(note_now_playing, note, punctumContra);
 					}
 
-				//System.out.println("pitch is " + TonalUtilities.returnNoteName(note_now_playing.getPitch())+ " voor " + name );
-				
-				//System.out.println("pitchvalue = " +  note_now_playing.getPitch() + " voor " + name);
 				MidiHandler.playNoteOnChannel(channelno, note_now_playing);
-				
 				melos.add(note_now_playing);
 				numberOfChanges++;
 				
@@ -137,7 +117,6 @@ public class Voice implements IBeatListener
 			}
 		numberOfPulse++;
 		System.out.println("numberOf " +numberOfChanges + " voor " + name);
-		//System.out.println("number of pulses "+ numberOfPulse);
 		return duration;
 	//yeah, that works!
 	}

@@ -1,9 +1,11 @@
 package counterpoint;
 
 import common.Note;
+import utilities.MathUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public final class MelodicOperation 
 {
@@ -32,6 +34,27 @@ public final class MelodicOperation
 			wejoz.add(new Note(melos.get(i).getPitch()+diff,0,0));
 		}
 		return wejoz;
+	}
+
+	public static Note randomMelodic(Note note, Tonality tonality)
+	{ Note noteUit = new Note(0, 0,0);
+		switch(new Random().nextInt(3) )
+		{
+			case 0: noteUit = note;
+				break;
+			case 1: noteUit = tonality.stepInterval(note, 1);
+				break;
+			case 2: noteUit = tonality.stepInterval(note, -1);
+				break;
+
+			case 3: noteUit = tonality.stepInterval(note, -4);
+				break;
+			case 4: noteUit = tonality.stepInterval(note, 5);
+				break;
+			default: noteUit  = tonality.stepInterval(note, MathUtils.getRandomPosOrNeg(-6, 7));
+		}
+
+		return noteUit;
 	}
 }
 
