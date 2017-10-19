@@ -21,7 +21,7 @@ public class Program {
 		ArrayList<int[]> patternList = new ArrayList<int[]>();
 
 	//	for(int i= 1;i<Integer.parseInt(args[0]);i++)
-        for(int i =0;i<2;i++)
+        for(int i =0;i<4;i++)
         {boolean acc = false;
         	if(i>0)
 			{acc = true;}
