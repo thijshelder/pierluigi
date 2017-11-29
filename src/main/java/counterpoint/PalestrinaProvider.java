@@ -36,7 +36,7 @@ public class PalestrinaProvider {
         {
             isPerfect = true;
         }
-        return (MathUtils.isElementOf(presentInterval%12, HarmonicConsonants.consonants));
+        return (MathUtils.isElementOf(Math.abs(presentInterval%12), HarmonicConsonants.consonants));
     }
 
     public boolean step()
@@ -70,7 +70,5 @@ public class PalestrinaProvider {
 
         return note2;
     }
-
-
 
 }

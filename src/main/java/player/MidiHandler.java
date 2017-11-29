@@ -30,6 +30,7 @@ public final class MidiHandler
 			synth = MidiSystem.getMidiDevice(infos[0]);
 			
 			synth.getDeviceInfo();
+
 			System.out.println(synth.getDeviceInfo());
 			if(synth instanceof Synthesizer)
 			{

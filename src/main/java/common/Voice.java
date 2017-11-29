@@ -33,10 +33,10 @@ public class Voice implements IBeatListener
 		mytonality = tonality;
 		this.pattern = pattern;
 		MidiHandler.openMidiHandler();
-		MidiHandler.chProgramChange(68, 1);
-		MidiHandler.chProgramChange(67, 0);
-		MidiHandler.chProgramChange(69, 2);
-		MidiHandler.chProgramChange(73,3);
+		MidiHandler.chProgramChange(4, 0);
+		MidiHandler.chProgramChange(5, 1);
+		MidiHandler.chProgramChange(6, 2);
+		MidiHandler.chProgramChange(7 ,3);
 		PunctumContraPunctum.setTonality(mytonality);
 		TonalUtilities.setTonality(mytonality);
 		firstNote();
@@ -84,7 +84,7 @@ public class Voice implements IBeatListener
 		    changePattern(new Random().nextInt(PatternLibrary.getLength()));
 		    System.out.println("patternchange for voice " + this.name + " naar pattern ");
 		}
-		
+		//TODO: it would seem better to handle rhythm in a different class
 		int  notevalue = pattern[(Math.min(Math.max(0, numberOfChanges),pattern.length-1))];
 		//System.out.println(" present  notevalue is  " + " "+ notevalue + "voor " + name);
 		note_now_playing.setDuration(notevalue);
@@ -97,13 +97,14 @@ public class Voice implements IBeatListener
 			
 				if(!accompagnement)
                 {
+                	//TODO: find some better algorithm to determine melody (tenor)
                     note_now_playing = MelodicOperation.randomMelodic(note,mytonality);
                 }
 					
 				else
-					{
-					note_now_playing = new PunctumContraPunctum(mytonality).createCounterpoint(note_now_playing, note, punctumContra);
-					}
+				{
+					note_now_playing = new PunctumContraPunctum(mytonality).createCounterpoint(melos.get(Math.max(numberOfChanges-1,0)), note, punctumContra);
+				}
 
 				MidiHandler.playNoteOnChannel(channelno, note_now_playing);
 				melos.add(note_now_playing);

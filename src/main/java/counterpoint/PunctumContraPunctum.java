@@ -53,8 +53,6 @@ public final class PunctumContraPunctum {
                 note = MelodicOperation.randomMelodic(accompNote, tonality);
             } else {
                 note = palestrina.createMelodicStepMovement(accompNote);
-
-
             }
 
 
