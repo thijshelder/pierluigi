@@ -25,7 +25,7 @@ public class BeatTask extends TimerTask {
 		//boolean change = (offset%(2*list.indexOf(lister)+1)==0);
 		lister.beInformed((Note)list.get(list.indexOf(list)+1).informAllOthers());
 		//System.out.println("succes finding note to counterpoint to");
-		int b = lister.contemplateChange(Math.min(list.indexOf(lister),15));
+		lister.contemplateChange(Math.min(list.indexOf(lister),15));
 		//int b  = lister.contemplateChange(9);
 		}
 		

@@ -2,7 +2,7 @@ package common;
 
 public interface IBeatListener 
 {
-	int contemplateChange(int no_of_channel);
+	void contemplateChange(int no_of_channel);
 	
 	Object informAllOthers();
 	

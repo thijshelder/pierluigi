@@ -9,162 +9,147 @@ import player.MidiHandler;
 import rhythmEngine.PatternLibrary;
 import utilities.MathUtils;
 
-public class Voice implements IBeatListener
-{
-	List<Note> melos = new ArrayList<Note>();
-	Note note_now_playing;
-	boolean changable;
-	int pitch; 
-	int velocity = 75;
-	int duration = 1;
-	Tonality mytonality;
-	int numberOfPulse = 1;
-	int numberOfChanges = 1;
-	int[] pattern;
-	boolean accompagnement;
-	Note punctumContra = null;
-	String name;
-	static int noOfVoices;
+public class Voice implements IBeatListener {
+    private List<Note> melos = new ArrayList<Note>();
+    private Note note_now_playing;
+    private boolean changable;
+    private int pitch;
+    private int velocity = 75;
+    private int duration = 1;
+    private Tonality mytonality;
+    private int numberOfPulse = 1;
+    private int numberOfChanges = 1;
+    private int[] pattern; //pattern should definitively be its own class
+    private boolean accompagnement;
+    private Note punctumContra = null;
+    private String name;
+    private static int noOfVoices;
 
 
-	
-	public Voice(Tonality tonality, int[] pattern, boolean accompagnement)
-	{
-		mytonality = tonality;
-		this.pattern = pattern;
-		MidiHandler.openMidiHandler();
-		MidiHandler.chProgramChange(4, 0);
-		MidiHandler.chProgramChange(5, 1);
-		MidiHandler.chProgramChange(6, 2);
-		MidiHandler.chProgramChange(7 ,3);
-		PunctumContraPunctum.setTonality(mytonality);
-		TonalUtilities.setTonality(mytonality);
-		firstNote();
-		Voice.setNoOfVoices();
-		name = "voice" +Voice.noOfVoices;
-	}
+    public Voice(Tonality tonality, int[] pattern, boolean accompagnement) {
+        mytonality = tonality;
+        this.pattern = pattern;
+        MidiHandler.openMidiHandler();
+        MidiHandler.chProgramChange(16, 0);
+        MidiHandler.chProgramChange(16, 1);
+        MidiHandler.chProgramChange(16, 2);
+        MidiHandler.chProgramChange(16, 3);
+        PunctumContraPunctum.setTonality(mytonality);
+        TonalUtilities.setTonality(mytonality);
+        firstNote();
+        Voice.setNoOfVoices();
+        name = "voice" + Voice.noOfVoices;
+    }
 
     private static void setNoOfVoices()
     {
         noOfVoices++;
     }
-	
-	public Voice(int pitch,boolean accompagnement)
-	{
-		this.pitch = pitch;
-		mytonality = new Tonality(melos);
-		mytonality.createScale(new Note(pitch, 0,0));
-		MidiHandler.openMidiHandler();
-		MidiHandler.chProgramChange(221, 1);
-		PunctumContraPunctum.setTonality(mytonality);
-		TonalUtilities.setTonality(mytonality);
-		firstNote();
-		this.accompagnement = accompagnement;
 
-	}
+    public void setContraPunctum(Note note) {
+        punctumContra = note;
+    }
 
-	public void setContraPunctum(Note note)
-	{
-	punctumContra = note;
-	}
-	public void firstNote()
-	{		
-		note_now_playing = new Note(pitch, TonalUtilities.findFunction(pitch), 0);
-		melos.add(note_now_playing);
-	}
+    public void firstNote()
+    {
+        note_now_playing = new Note(pitch, TonalUtilities.findFunction(pitch), 0);
+        melos.add(note_now_playing);
+    }
 
 
+    public synchronized void contemplateChange(int channelno)
+    {
+        resetPattern();
+        setNoteValue();
+        handleNoteChange(channelno);
+        numberOfPulse++;
+    }
 
-	public synchronized int contemplateChange(int channelno)
-	{
-	    int sumOfPattern = MathUtils.getSumOfArray(pattern);
-	   	if (numberOfPulse==sumOfPattern)
-		{   numberOfPulse = 0;
-		    numberOfChanges = 0;
-		    changePattern(new Random().nextInt(PatternLibrary.getLength()));
-		    System.out.println("patternchange for voice " + this.name + " naar pattern ");
-		}
-		//TODO: it would seem better to handle rhythm in a different class
-		int  notevalue = pattern[(Math.min(Math.max(0, numberOfChanges),pattern.length-1))];
-		//System.out.println(" present  notevalue is  " + " "+ notevalue + "voor " + name);
-		note_now_playing.setDuration(notevalue);
-		boolean change = (note_now_playing.getDuration()<=duration);
-		if(change)
-			{
-			System.out.println(numberOfChanges);
-			MidiHandler.muteNoteOnChannel(channelno, note_now_playing);
-			Note note = note_now_playing;
-			
-				if(!accompagnement)
-                {
-                	//TODO: find some better algorithm to determine melody (tenor)
-                    note_now_playing = MelodicOperation.randomMelodic(note,mytonality);
-                }
-					
-				else
-				{
-					note_now_playing = new PunctumContraPunctum(mytonality).createCounterpoint(melos.get(Math.max(numberOfChanges-1,0)), note, punctumContra);
-				}
+    private boolean patternEnded()
+    {
+        int sumOfPattern = MathUtils.getSumOfArray(pattern);
+        return(numberOfPulse == sumOfPattern);
+    }
 
-				MidiHandler.playNoteOnChannel(channelno, note_now_playing);
-				melos.add(note_now_playing);
-				numberOfChanges++;
-				
-			    duration =1;
-			}
-		else
-			{
-				duration++;
-			}
-		numberOfPulse++;
-		System.out.println("numberOf " +numberOfChanges + " voor " + name);
-		return duration;
-	//yeah, that works!
-	}
-	
-	/*public int getNumberOf()
-	{
-		return numberOf;
-	}*/
+    private void resetPattern()
+    {
+        if (patternEnded())
+        {
+            numberOfPulse = 0;
+            numberOfChanges = 0;
+            changePattern(new Random().nextInt(PatternLibrary.getLength()));
+        }
+    }
 
-	public void changePattern(int selector)
-	{
-		pattern = PatternLibrary.getPattern(selector);
-	}
+    private void setNoteValue()
+    {
+        int notevalue = pattern[(Math.min(Math.max(0, numberOfChanges), pattern.length - 1))];
+        note_now_playing.setDuration(notevalue);
+    }
 
-	public Note getTonica()
-	{
-		return null;
-	}
-	
-	public int getPitch()
-	{
-		return note_now_playing.getPitch();
-	}
-	
-	public List<Note> getMelos()
-	{
-		return melos;
-	}
-	
-	public void setPitch(int pitch)
-	{
-		this.pitch = pitch;
-	}
-	
-	public Object informAllOthers()
-	{
-		return note_now_playing;
-	}
-	
-	public boolean getAccompagnement()
-	{
-		return accompagnement;
-	}
-	
-	public void beInformed(Note note)
-	{
-	punctumContra = note;
-	}
+    private void handleNoteChange(int channelNo)
+    {
+        if (note_now_playing.getDuration() <= duration)
+        {
+            MidiHandler.muteNoteOnChannel(channelNo, note_now_playing);
+            Note note = note_now_playing;
+
+            if (!accompagnement)
+            {
+                note_now_playing = MelodicOperation.randomMelodic(note, mytonality);
+            }
+            else
+            {
+                note_now_playing = new PunctumContraPunctum(mytonality).createCounterpoint(melos.get(Math.max(numberOfChanges - 1, 0)), note, punctumContra);
+            }
+
+            MidiHandler.playNoteOnChannel(channelNo, note_now_playing);
+            melos.add(note_now_playing);
+            numberOfChanges++;
+
+            duration = 1;
+        }
+        else
+        {
+            duration++;
+        }
+
+    }
+
+    public void changePattern(int selector) {
+        pattern = PatternLibrary.getPattern(selector);
+    }
+
+    public Note getTonica() {
+        return null;
+    }
+
+    public int getPitch() {
+        return note_now_playing.getPitch();
+    }
+
+    public List<Note> getMelos() {
+        return melos;
+    }
+
+    public void setPitch(int pitch) {
+        this.pitch = pitch;
+    }
+
+    public void setProgramChange(int instrumentNo, int channelNo) {
+        MidiHandler.chProgramChange(instrumentNo, channelNo);
+    }
+
+    public Object informAllOthers() {
+        return note_now_playing;
+    }
+
+    public boolean getAccompagnement() {
+        return accompagnement;
+    }
+
+    public void beInformed(Note note) {
+        punctumContra = note;
+    }
 
 }

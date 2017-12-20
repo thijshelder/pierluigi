@@ -28,7 +28,7 @@ public final class BeatProvider
 	
 	public void makeTick()
 	{
-		timer.schedule(task, 0, rhythmEngine.TimeSignature.determineSmallestTime(180,4,16));
+		timer.schedule(task, 0, rhythmEngine.TimeSignature.determineSmallestTime(Math.max(70,new Random().nextInt(220)),4,16));
 	}
 	
 	public void stopIt()

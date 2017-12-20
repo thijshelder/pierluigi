@@ -18,8 +18,6 @@ public  class PatternLibrary
         public static int[] getPattern(int selector)
         {
             return patternList[selector];
-
-
         }
 
         public static int getLength()
