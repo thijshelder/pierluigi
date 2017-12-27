@@ -73,7 +73,7 @@ public final class MidiHandler
 	
 	public static void playNoteOnChannel(int channelno, Note note)
 	{
-				channels[channelno].noteOn(note.getPitch(), 60);//we'll fix velocity later
+		channels[channelno].noteOn(note.getPitch(), 60);//we'll fix velocity later
 	}
 	
 	public static void muteNoteOnChannel(int channelno, Note note)

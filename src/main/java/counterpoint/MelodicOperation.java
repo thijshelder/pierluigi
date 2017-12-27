@@ -33,22 +33,30 @@ public final class MelodicOperation {
 
     public static Note randomMelodic(Note note, Tonality tonality) {
         Note noteUit = new Note(0, 0, 0);
-        switch (new Random().nextInt(3)) {
+        switch (new Random().nextInt(12)) {
             case 0:
+            case 8:
                 noteUit = note;
                 break;
             case 1:
+            case 5:
+            case 9:
                 noteUit = tonality.stepInterval(note, 1);
                 break;
             case 2:
+            case 6:
+            case 10:
                 noteUit = tonality.stepInterval(note, -1);
                 break;
-
             case 3:
+            case 7:
                 noteUit = tonality.stepInterval(note, -4);
                 break;
             case 4:
                 noteUit = tonality.stepInterval(note, 5);
+                break;
+            case 11:
+                noteUit = tonality.stepInterval(note, -5);
                 break;
             default:
                 noteUit = tonality.stepInterval(note, MathUtils.getRandomPosOrNeg(-6, 7));

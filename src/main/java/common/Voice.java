@@ -22,23 +22,23 @@ public class Voice implements IBeatListener {
     private int[] pattern; //pattern should definitively be its own class
     private boolean accompagnement;
     private Note punctumContra = null;
+    private int channelNo;
     private String name;
     private static int noOfVoices;
+    PunctumContraPunctum punctum = new PunctumContraPunctum(mytonality);
+    private boolean tacet  = false;
 
 
     public Voice(Tonality tonality, int[] pattern, boolean accompagnement) {
         mytonality = tonality;
         this.pattern = pattern;
-        MidiHandler.openMidiHandler();
-        MidiHandler.chProgramChange(16, 0);
-        MidiHandler.chProgramChange(16, 1);
-        MidiHandler.chProgramChange(16, 2);
-        MidiHandler.chProgramChange(16, 3);
+        this.channelNo = Math.min(Voice.noOfVoices,15);
         PunctumContraPunctum.setTonality(mytonality);
         TonalUtilities.setTonality(mytonality);
         firstNote();
         Voice.setNoOfVoices();
         name = "voice" + Voice.noOfVoices;
+
     }
 
     private static void setNoOfVoices()
@@ -61,7 +61,7 @@ public class Voice implements IBeatListener {
     {
         resetPattern();
         setNoteValue();
-        handleNoteChange(channelno);
+        handleNoteChange();
         numberOfPulse++;
     }
 
@@ -75,8 +75,13 @@ public class Voice implements IBeatListener {
     {
         if (patternEnded())
         {
+            if(tacet)
+            {
+                velocity = 0;
+            }
             numberOfPulse = 0;
             numberOfChanges = 0;
+
             changePattern(new Random().nextInt(PatternLibrary.getLength()));
         }
     }
@@ -87,7 +92,7 @@ public class Voice implements IBeatListener {
         note_now_playing.setDuration(notevalue);
     }
 
-    private void handleNoteChange(int channelNo)
+    private void handleNoteChange()
     {
         if (note_now_playing.getDuration() <= duration)
         {
@@ -100,7 +105,7 @@ public class Voice implements IBeatListener {
             }
             else
             {
-                note_now_playing = new PunctumContraPunctum(mytonality).createCounterpoint(melos.get(Math.max(numberOfChanges - 1, 0)), note, punctumContra);
+                note_now_playing = punctum.createCounterpoint(melos.get(Math.max(numberOfChanges - 1, 0)), note, punctumContra);
             }
 
             MidiHandler.playNoteOnChannel(channelNo, note_now_playing);
@@ -136,7 +141,7 @@ public class Voice implements IBeatListener {
         this.pitch = pitch;
     }
 
-    public void setProgramChange(int instrumentNo, int channelNo) {
+    public void setProgramChange(int instrumentNo) {
         MidiHandler.chProgramChange(instrumentNo, channelNo);
     }
 
