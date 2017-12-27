@@ -11,7 +11,6 @@ public class TestMidiPlayer {
 	{
 		MidiHandler.openMidiHandler();
 		MidiHandler.viewInstruments();
-		
 	}
 
 }

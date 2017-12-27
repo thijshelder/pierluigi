@@ -2,6 +2,7 @@ package counterpoint;
 import common.Note;
 import common.Voice;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -17,11 +18,10 @@ public final class PunctumContraPunctum {
     }
 
     public PunctumContraPunctum(List<Voice> voices) {
-        List<Note> noteList = null; //I might consider finding some default value here.
+        List<Note> noteList = new ArrayList<>();
         for (Voice voice : voices) {
             noteList.add(voice.getMelos().get(0));
         }
-        tonality = new Tonality(noteList);
         palestrina = new PalestrinaProvider(tonality);
     }
 
@@ -35,7 +35,7 @@ public final class PunctumContraPunctum {
 
     public static Note makeCounterpoint(Note note) {
         //System.out.println(tonality.getScale().get(tonality.getScale().indexOf(note.getFunction() + Math.round(note.getPitch()/7))));
-        return tonality.getScale().get(Math.min(Math.max(0, note.getFunction() + Math.round((note.getPitch() / 12) * 7) - consonants[new Random().nextInt(3)] - 1), 55));
+        return tonality.getScale().get(Math.min(Math.max(0, note.getFunction() + ((note.getPitch() / 12) * 7) - consonants[new Random().nextInt(3)] - 1), 55));
     }
 
     public  Note createCounterpoint(Note beforenote, Note afternote, Note accompNote)
@@ -47,15 +47,13 @@ public final class PunctumContraPunctum {
             note = MelodicOperation.randomMelodic(accompNote, tonality);
         }
         else if (palestrina.determineSonance(beforenote, accompNote)) {
-            if (palestrina.step()) {
-                note = palestrina.createMelodicStepMovement(accompNote);
+            if (palestrina.step(beforenote, afternote)) {
+                note = palestrina.createMelodicStepMovement(beforenote, afternote, accompNote, tonality);
             } else if (palestrina.isPerfect) {
                 note = MelodicOperation.randomMelodic(accompNote, tonality);
             } else {
-                note = palestrina.createMelodicStepMovement(accompNote);
+                note = palestrina.createMelodicStepMovement(beforenote, afternote, accompNote, tonality);
             }
-
-
         }
         return note;
     }

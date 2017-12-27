@@ -12,7 +12,6 @@ import utilities.MathUtils;
 public class Voice implements IBeatListener {
     private List<Note> melos = new ArrayList<Note>();
     private Note note_now_playing;
-    private boolean changable;
     private int pitch;
     private int velocity = 75;
     private int duration = 1;
@@ -32,6 +31,7 @@ public class Voice implements IBeatListener {
     public Voice(Tonality tonality, int[] pattern, boolean accompagnement) {
         mytonality = tonality;
         this.pattern = pattern;
+        this.accompagnement = accompagnement;
         this.channelNo = Math.min(Voice.noOfVoices,15);
         PunctumContraPunctum.setTonality(mytonality);
         TonalUtilities.setTonality(mytonality);
@@ -105,7 +105,7 @@ public class Voice implements IBeatListener {
             }
             else
             {
-                note_now_playing = punctum.createCounterpoint(melos.get(Math.max(numberOfChanges - 1, 0)), note, punctumContra);
+                note_now_playing = punctum.createCounterpoint(melos.get(Math.max(numberOfChanges - 2, 0)), note, punctumContra);
             }
 
             MidiHandler.playNoteOnChannel(channelNo, note_now_playing);

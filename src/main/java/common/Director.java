@@ -16,7 +16,7 @@ public class Director {
     Tonality tonality = new Tonality(list);
     ArrayList<int[]> patternList = new ArrayList<int[]>();
 
-    public static void initOrchestra(int numberOfVoices, int instrument)
+    public void initOrchestra(int numberOfVoices, int instrument)
     {
         MidiHandler.openMidiHandler();
         for(int i=0;i<=numberOfVoices;i++)

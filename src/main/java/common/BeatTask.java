@@ -16,17 +16,10 @@ public class BeatTask extends TimerTask {
 	
 	public void run()
 	{
-		
-		//System.out.println("pulse");
 		offset++;
-		
-		for(IBeatListener lister:list)
-		{
-		//boolean change = (offset%(2*list.indexOf(lister)+1)==0);
-		lister.beInformed((Note)list.get(list.indexOf(list)+1).informAllOthers());
-		//System.out.println("succes finding note to counterpoint to");
-		lister.contemplateChange(Math.min(list.indexOf(lister),15));
-		//int b  = lister.contemplateChange(9);
+	    for(IBeatListener lister:list) {
+			lister.beInformed((Note) list.get(Math.min(list.indexOf(lister) +1, list.size()-1)).informAllOthers());
+			lister.contemplateChange(Math.min(list.indexOf(lister), 15));
 		}
 		
 	}

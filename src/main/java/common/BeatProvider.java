@@ -1,9 +1,10 @@
 package common;
 
 
-import java.util.*;
-
-import rhythmEngine.RhythmEngine;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Timer;
 
 
 
@@ -12,7 +13,7 @@ public final class BeatProvider
 {
 	Timer timer = new Timer();
 	protected BeatTask task = new BeatTask();
-	List<Voice> voices = new ArrayList<Voice>();
+	List<Voice> voices = new ArrayList<>();
 	
 	public void addVoice(Voice voice)
 	{

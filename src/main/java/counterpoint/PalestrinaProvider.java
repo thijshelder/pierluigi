@@ -39,7 +39,7 @@ public class PalestrinaProvider {
         return (MathUtils.isElementOf(Math.abs(presentInterval%12), HarmonicConsonants.consonants));
     }
 
-    public boolean step()
+    public boolean step(Note presentNoteTenor, Note newTenor)
     {
         if((Math.abs(presentNoteTenor.getPitch() - newTenor.getPitch()))>2)
         {
@@ -51,24 +51,23 @@ public class PalestrinaProvider {
         }
     }
 
-    public int getNewInterval()
+    public int getNewInterval(Note presentNoteAccomp, Note newTenor)
     {
        return (presentNoteAccomp.getPitch() - newTenor.getPitch() );
     }
 
-    public Note createMelodicStepMovement(Note note)
+    public Note createMelodicStepMovement(Note presentNoteTenor, Note newTenor, Note note, Tonality tonality)
     {
-        Note note2 = presentNoteAccomp;
-        if(presentNoteTenor.getPitch() - newTenor.getPitch() < 0)
+       if(presentNoteTenor.getPitch() - newTenor.getPitch() < 0)
         {
-            note2 = tonality.stepInterval(note2, 1);
+            note = tonality.stepInterval(note, 1);
         }
         else
         {
-        note2 = tonality.stepInterval(note2, -1);
+        note = tonality.stepInterval(note, -1);
         }
 
-        return note2;
+        return note;
     }
 
 }
