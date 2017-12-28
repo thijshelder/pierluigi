@@ -13,17 +13,17 @@ public final class BeatProvider
 {
 	Timer timer = new Timer();
 	protected BeatTask task = new BeatTask();
-	List<Voice> voices = new ArrayList<>();
+	List<Track> tracks = new ArrayList<>();
 	
-	public void addVoice(Voice voice)
+	public void addVoice(Track track)
 	{
-		voices.add(voice);
+		tracks.add(track);
 	}
 	public void createVoicePool()
 	{
-		for(Voice voice:voices)
+		for(Track track : tracks)
 		{	
-			task.addListener(voice);
+			task.addListener(track);
 		}
 	}
 	

@@ -1,8 +1,6 @@
 package counterpoint;
 
 
-import common.Note;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

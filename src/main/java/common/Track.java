@@ -9,8 +9,10 @@ import player.MidiHandler;
 import rhythmengine.PatternLibrary;
 import utilities.MathUtils;
 
-public class Voice implements IBeatListener {
-    private List<Note> melos = new ArrayList<>();
+public class Track implements IBeatListener {
+
+    private Voice voice;
+
     private Note noteNowPlaying;
     private int pitch;
     private int velocity = 75;
@@ -28,16 +30,16 @@ public class Voice implements IBeatListener {
     private boolean tacet  = false;
 
 
-    public Voice(Tonality tonality, int[] pattern, boolean counterpoint) {
+    public Track(Tonality tonality, int[] pattern, boolean counterpoint) {
         mytonality = tonality;
         this.pattern = pattern;
         this.counterpoint = counterpoint;
-        this.channelNo = Math.min(Voice.noOfVoices,15);
+        this.channelNo = Math.min(Track.noOfVoices,15);
         PunctumContraPunctum.setTonality(mytonality);
         TonalUtilities.setTonality(mytonality);
         firstNote();
-        Voice.setNoOfVoices();
-        name = "voice" + Voice.noOfVoices;
+        Track.setNoOfVoices();
+        name = "voice" + Track.noOfVoices;
 
     }
 

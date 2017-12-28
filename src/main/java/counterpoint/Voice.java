@@ -3,7 +3,7 @@ package counterpoint;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Melos {
+public class Voice {
 
-    public List<Note> noteList = new ArrayList<>();
+    private List<Note> melos = new ArrayList<>();
 }

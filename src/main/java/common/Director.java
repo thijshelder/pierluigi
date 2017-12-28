@@ -1,5 +1,6 @@
 package common;
 
+import counterpoint.Note;
 import counterpoint.Tonality;
 import player.MidiHandler;
 import rhythmengine.PatternLibrary;
@@ -35,7 +36,7 @@ public class Director {
             {
                 acc = true;
             }
-            provider.addVoice(new Voice(tonality, PatternLibrary.getPattern(new Random().nextInt(PatternLibrary.getLength())), acc));
+            provider.addVoice(new Track(tonality, PatternLibrary.getPattern(new Random().nextInt(PatternLibrary.getLength())), acc));
         }
         provider.createVoicePool();
         provider.makeTick();

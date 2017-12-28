@@ -1,6 +1,6 @@
 package player;
 
-import common.Note;
+import counterpoint.Note;
 
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiChannel;

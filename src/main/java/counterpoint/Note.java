@@ -1,4 +1,4 @@
-package common;
+package counterpoint;
 
 public class Note 
 {

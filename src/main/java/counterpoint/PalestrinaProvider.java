@@ -1,9 +1,6 @@
 package counterpoint;
 
-import common.Note;
 import utilities.MathUtils;
-
-import static counterpoint.PunctumContraPunctum.consonants;
 
 /**
  * Created by Thijs on 28-9-2017.

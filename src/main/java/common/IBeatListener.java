@@ -1,6 +1,8 @@
 package common;
 
-public interface IBeatListener 
+import counterpoint.Note;
+
+public interface IBeatListener
 {
 	void contemplateChange(int channelNo);
 	

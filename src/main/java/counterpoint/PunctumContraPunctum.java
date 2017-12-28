@@ -1,7 +1,6 @@
 package counterpoint;
 
-import common.Note;
-import common.Voice;
+import common.Track;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +16,10 @@ public final class PunctumContraPunctum {
         palestrina = new PalestrinaProvider(tonality);
     }
 
-    public PunctumContraPunctum(List<Voice> voices) {
+    public PunctumContraPunctum(List<Track> tracks) {
         List<Note> noteList = new ArrayList<>();
-        for (Voice voice : voices) {
-            noteList.add(voice.getMelos().get(0));
+        for (Track track : tracks) {
+            noteList.add(track.getMelos().get(0));
         }
         palestrina = new PalestrinaProvider(tonality);
     }

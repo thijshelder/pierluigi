@@ -1,5 +1,7 @@
 package common;
 
+import counterpoint.Note;
+
 import java.util.*;
 
 public class BeatTask extends TimerTask {

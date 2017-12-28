@@ -1,8 +1,6 @@
 package fixtures;
 
-import static org.junit.Assert.*;
-
-import common.Note;
+import counterpoint.Note;
 import counterpoint.Tonality;
 import org.junit.Test;
 

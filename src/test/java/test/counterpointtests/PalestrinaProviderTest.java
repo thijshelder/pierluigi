@@ -1,6 +1,6 @@
 package test.counterpointtests;
 
-import common.Note;
+import counterpoint.Note;
 import counterpoint.PalestrinaProvider;
 import counterpoint.Tonality;
 import org.hamcrest.core.Is;
