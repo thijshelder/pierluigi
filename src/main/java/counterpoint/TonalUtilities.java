@@ -7,7 +7,9 @@ public final class TonalUtilities
 {
 	static final String[] noteNames = {"C", "D", "E", "F", "G", "A", "B" };
 	static Tonality tonality; 
-	
+
+	private TonalUtilities()
+	{}
 	
 	public static String returnNoteName(int pitch)
 	{

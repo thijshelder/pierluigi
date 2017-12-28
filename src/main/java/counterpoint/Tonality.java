@@ -87,10 +87,4 @@ public class Tonality {
     public Note stepInterval(Note note, int interval) {
         return scale.get(Math.max(lowestNoteValue, Math.min((scale.indexOf(note) + interval), scale.size() - 1)));
     }
-
-
-    /*public Note fillChord(Note note1, Note note2)*/
-    /*{*/
-    /*   */
-    /*}*/
 }

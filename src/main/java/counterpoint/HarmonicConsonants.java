@@ -5,9 +5,10 @@ package counterpoint;
  */
 public class HarmonicConsonants {
 
-    private HarmonicConsonants() {//hide implicit public constructor}
+    private HarmonicConsonants()
+    {
     }
 
-    public static final int[] consonants =
+    protected static final int[] consonants =
     {3,4,5,7,8,9};
 }

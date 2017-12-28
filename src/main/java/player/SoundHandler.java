@@ -1,10 +1,7 @@
 package player;
 
 import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Line;
 import javax.sound.sampled.Mixer;
-
-import static javax.sound.sampled.AudioSystem.getMixerInfo;
 
 
 public class SoundHandler {

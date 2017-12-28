@@ -5,7 +5,6 @@ import common.Note;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiDevice;
-import javax.sound.midi.MidiDevice.Info;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
@@ -41,7 +40,6 @@ public final class MidiHandler
 		}
 		catch(MidiUnavailableException e)
 		{
-			System.out.println("midi unavailable on this system, please check");
 			e.printStackTrace();
 			System.exit(1);
 		}
@@ -53,12 +51,6 @@ public final class MidiHandler
 	public static void viewInstruments()
 	{
 		Instrument[] instruments = ((Synthesizer) synth).getAvailableInstruments();
-		int i = 0;
-		for(Instrument instrument:instruments)
-		{
-			System.out.println(instrument.getName() + " "+ instrument.hashCode() + " "+ i);
-			i++;
-		}
 	}
 	
 	public static void chProgramChange(int inst, int channelno)

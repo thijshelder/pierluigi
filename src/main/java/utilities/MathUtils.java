@@ -5,6 +5,9 @@ import java.util.Random;
 public final class MathUtils
 
 {
+	private MathUtils()
+	{}
+
 	public static int getRandomPosOrNeg(int min, int max) {
 		return (Math.min(Math.max(min, min + new Random().nextInt(max - min)), max));
 	}
@@ -14,8 +17,6 @@ public final class MathUtils
 		for (int i = 0; i < intarraylist.length; i++) {
 			arrayLength = arrayLength + intarraylist[i];
 		}
-		//System.out.println("the total length of this pattern is " +arrayLength);
-
 		return arrayLength;
 	}
 
@@ -24,7 +25,6 @@ public final class MathUtils
 		if (in % 2 == 0&&decider)
 		{
 			 in += in / 2;
-			// System.out.println("randomized");
 		}
 		return in;
 	}
