@@ -12,10 +12,13 @@ import javax.sound.midi.Synthesizer;
 
 
 
-public final class MidiHandler 
+public final class MidiHandler
 {
 	static MidiDevice synth = null;
 	static MidiChannel[] channels = null;
+
+	private MidiHandler()
+	{}
 	
 	public static void openMidiHandler()
 	
@@ -23,22 +26,15 @@ public final class MidiHandler
 		try
 		{
 			MidiDevice.Info[] infos =  MidiSystem.getMidiDeviceInfo();
-			for(Info info:infos)
-					{
-						System.out.println(info.getDescription());
-					}
 			synth = MidiSystem.getMidiDevice(infos[0]);
-			
 			synth.getDeviceInfo();
 
-			System.out.println(synth.getDeviceInfo());
 			if(synth instanceof Synthesizer)
 			{
-			channels = ((Synthesizer) synth).getChannels();
+			    channels = ((Synthesizer) synth).getChannels();
 			}
 			else
 			{
-				System.out.println("that is not a synthesizer");
 				System.exit(1);
 			}
 			synth.open();

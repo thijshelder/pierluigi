@@ -2,7 +2,7 @@ package common;
 
 import counterpoint.Tonality;
 import player.MidiHandler;
-import rhythmEngine.PatternLibrary;
+import rhythmengine.PatternLibrary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,10 @@ import java.util.Random;
 public class Director {
 
     BeatProvider provider = new BeatProvider();
-    List<Note> list = new ArrayList<Note>();
+    List<Note> list = new ArrayList<>();
 
     Tonality tonality = new Tonality(list);
-    ArrayList<int[]> patternList = new ArrayList<int[]>();
+    ArrayList<int[]> patternList = new ArrayList<>();
 
     public void initOrchestra(int numberOfVoices, int instrument)
     {

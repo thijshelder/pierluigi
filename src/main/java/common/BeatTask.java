@@ -4,11 +4,8 @@ import java.util.*;
 
 public class BeatTask extends TimerTask {
 	
-	//private List<IBeatListener> listeners = new ArrayList<IBeatListener>();
-	
 	int offset = 0;
-	//controls rhythm. an note duration can be n; so after n ticks the note will have to change and offset is reset to 0;
-	List<IBeatListener> list = new ArrayList<IBeatListener>();
+	List<IBeatListener> list = new ArrayList<>();
 	public BeatTask()
 	{
 		super();

@@ -9,7 +9,7 @@ import java.util.Random;
 
 public final class MelodicOperation {
     public List<Note> createRetrogade(List<Note> melos) {
-        List<Note> solem = new ArrayList<Note>();
+        List<Note> solem = new ArrayList<>();
         for (int i = 0; i < melos.size(); i++) {
             solem.add(melos.get(melos.size() - (i + 1)));
         }
@@ -17,7 +17,7 @@ public final class MelodicOperation {
     }
 
     public List<Note> createMirror(List<Note> melos) {
-        List<Note> wejoz = new ArrayList<Note>();
+        List<Note> wejoz = new ArrayList<>();
         wejoz.add(melos.get(0));
         for (int i = 0; i < melos.size() - 1; i++)
         {
@@ -32,7 +32,7 @@ public final class MelodicOperation {
     }
 
     public static Note randomMelodic(Note note, Tonality tonality) {
-        Note noteUit = new Note(0, 0, 0);
+        Note noteUit;
         switch (new Random().nextInt(12)) {
             case 0:
             case 8:

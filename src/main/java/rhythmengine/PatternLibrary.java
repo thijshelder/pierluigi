@@ -1,10 +1,13 @@
-package rhythmEngine;
+package rhythmengine;
 
 /**
  * Created by Thijs on 27-9-2017.
  */
 public  class PatternLibrary
 {
+        private PatternLibrary()
+        {}
+
         static int[] jofel = {4,4,2,2,2,2,4,8,8,2,2,16};
         static int[] kwarten = {16, 16, 16, 16};
         static int[] huppel = {12, 4, 12, 4, 12, 4, 12, 4};

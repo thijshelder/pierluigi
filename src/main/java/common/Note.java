@@ -25,7 +25,12 @@ public class Note
 	{
 		return function;
 	}
-	
+
+	public void setFunction(int function)
+	{
+		this.function = function;
+	}
+
 	public int getDuration()
 	{
 	return duration;

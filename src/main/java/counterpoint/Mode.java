@@ -1,6 +1,6 @@
 package counterpoint;
 
 public enum Mode {
-	Major, Minor
+	MAJOR, MINOR
 
 }

@@ -1,4 +1,4 @@
-package rhythmEngine;
+package rhythmengine;
 
 public class TimeSignature 
 

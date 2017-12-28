@@ -6,12 +6,12 @@ import java.util.Random;
 
 import counterpoint.*;
 import player.MidiHandler;
-import rhythmEngine.PatternLibrary;
+import rhythmengine.PatternLibrary;
 import utilities.MathUtils;
 
 public class Voice implements IBeatListener {
-    private List<Note> melos = new ArrayList<Note>();
-    private Note note_now_playing;
+    private List<Note> melos = new ArrayList<>();
+    private Note noteNowPlaying;
     private int pitch;
     private int velocity = 75;
     private int duration = 1;
@@ -19,19 +19,19 @@ public class Voice implements IBeatListener {
     private int numberOfPulse = 1;
     private int numberOfChanges = 1;
     private int[] pattern; //pattern should definitively be its own class
-    private boolean accompagnement;
+    private boolean counterpoint;
     private Note punctumContra = null;
     private int channelNo;
-    private String name;
+    String name;
     private static int noOfVoices;
     PunctumContraPunctum punctum = new PunctumContraPunctum(mytonality);
     private boolean tacet  = false;
 
 
-    public Voice(Tonality tonality, int[] pattern, boolean accompagnement) {
+    public Voice(Tonality tonality, int[] pattern, boolean counterpoint) {
         mytonality = tonality;
         this.pattern = pattern;
-        this.accompagnement = accompagnement;
+        this.counterpoint = counterpoint;
         this.channelNo = Math.min(Voice.noOfVoices,15);
         PunctumContraPunctum.setTonality(mytonality);
         TonalUtilities.setTonality(mytonality);
@@ -52,8 +52,8 @@ public class Voice implements IBeatListener {
 
     public void firstNote()
     {
-        note_now_playing = new Note(pitch, TonalUtilities.findFunction(pitch), 0);
-        melos.add(note_now_playing);
+        noteNowPlaying = new Note(pitch, TonalUtilities.findFunction(pitch), 0);
+        melos.add(noteNowPlaying);
     }
 
 
@@ -89,27 +89,27 @@ public class Voice implements IBeatListener {
     private void setNoteValue()
     {
         int notevalue = pattern[(Math.min(Math.max(0, numberOfChanges), pattern.length - 1))];
-        note_now_playing.setDuration(notevalue);
+        noteNowPlaying.setDuration(notevalue);
     }
 
     private void handleNoteChange()
     {
-        if (note_now_playing.getDuration() <= duration)
+        if (noteNowPlaying.getDuration() <= duration)
         {
-            MidiHandler.muteNoteOnChannel(channelNo, note_now_playing);
-            Note note = note_now_playing;
+            MidiHandler.muteNoteOnChannel(channelNo, noteNowPlaying);
+            Note note = noteNowPlaying;
 
-            if (!accompagnement)
+            if (!counterpoint)
             {
-                note_now_playing = MelodicOperation.randomMelodic(note, mytonality);
+                noteNowPlaying = MelodicOperation.randomMelodic(note, mytonality);
             }
             else
             {
-                note_now_playing = punctum.createCounterpoint(melos.get(Math.max(numberOfChanges - 2, 0)), note, punctumContra);
+                noteNowPlaying = punctum.createCounterpoint(melos.get(Math.max(numberOfChanges - 2, 0)), note, punctumContra);
             }
 
-            MidiHandler.playNoteOnChannel(channelNo, note_now_playing);
-            melos.add(note_now_playing);
+            MidiHandler.playNoteOnChannel(channelNo, noteNowPlaying);
+            melos.add(noteNowPlaying);
             numberOfChanges++;
 
             duration = 1;
@@ -130,7 +130,7 @@ public class Voice implements IBeatListener {
     }
 
     public int getPitch() {
-        return note_now_playing.getPitch();
+        return noteNowPlaying.getPitch();
     }
 
     public List<Note> getMelos() {
@@ -146,11 +146,11 @@ public class Voice implements IBeatListener {
     }
 
     public Object informAllOthers() {
-        return note_now_playing;
+        return noteNowPlaying;
     }
 
     public boolean getAccompagnement() {
-        return accompagnement;
+        return counterpoint;
     }
 
     public void beInformed(Note note) {

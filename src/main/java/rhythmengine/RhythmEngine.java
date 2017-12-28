@@ -1,13 +1,13 @@
-package rhythmEngine;
+package rhythmengine;
 
 import java.util.Random;
 
 public final class RhythmEngine
 
 {
-	public static int createMeasure()
+	private RhythmEngine()
 	{
-		return 100;
+
 	}
 
 	public static boolean createRandomNoteValue()
