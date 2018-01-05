@@ -1,6 +1,5 @@
 package common;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -14,49 +13,38 @@ public class Track implements IBeatListener {
     private Voice voice;
 
     private Note noteNowPlaying;
-    private int pitch;
-    private int velocity = 75;
     private int duration = 1;
-    private Tonality mytonality;
+
     private int numberOfPulse = 1;
     private int numberOfChanges = 1;
     private int[] pattern; //pattern should definitively be its own class
-    private boolean counterpoint;
-    private Note punctumContra = null;
+
     private int channelNo;
     String name;
     private static int noOfVoices;
-    PunctumContraPunctum punctum = new PunctumContraPunctum(mytonality);
+
     private boolean tacet  = false;
 
 
     public Track(Tonality tonality, int[] pattern, boolean counterpoint) {
-        mytonality = tonality;
+
         this.pattern = pattern;
-        this.counterpoint = counterpoint;
+
         this.channelNo = Math.min(Track.noOfVoices,15);
-        PunctumContraPunctum.setTonality(mytonality);
-        TonalUtilities.setTonality(mytonality);
-        firstNote();
-        Track.setNoOfVoices();
+
+        Track.setNoOfTracks();
         name = "voice" + Track.noOfVoices;
 
     }
 
-    private static void setNoOfVoices()
+    private static void setNoOfTracks()
     {
         noOfVoices++;
     }
 
-    public void setContraPunctum(Note note) {
-        punctumContra = note;
-    }
 
-    public void firstNote()
-    {
-        noteNowPlaying = new Note(pitch, TonalUtilities.findFunction(pitch), 0);
-        melos.add(noteNowPlaying);
-    }
+
+
 
 
     public synchronized void contemplateChange(int channelno)
@@ -77,10 +65,6 @@ public class Track implements IBeatListener {
     {
         if (patternEnded())
         {
-            if(tacet)
-            {
-                velocity = 0;
-            }
             numberOfPulse = 0;
             numberOfChanges = 0;
 
