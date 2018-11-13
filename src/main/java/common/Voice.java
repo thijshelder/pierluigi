@@ -26,6 +26,7 @@ public class Voice implements IBeatListener {
     private static int noOfVoices;
     PunctumContraPunctum punctum = new PunctumContraPunctum(mytonality);
     private boolean tacet  = false;
+    private int voiceno;
 
 
     public Voice(Tonality tonality, int[] pattern, boolean counterpoint) {
@@ -37,6 +38,7 @@ public class Voice implements IBeatListener {
         TonalUtilities.setTonality(mytonality);
         firstNote();
         Voice.setNoOfVoices();
+        this.channelNo = noOfVoices;
         name = "voice" + Voice.noOfVoices;
 
     }
@@ -105,7 +107,7 @@ public class Voice implements IBeatListener {
             }
             else
             {
-                noteNowPlaying = punctum.createCounterpoint(melos.get(Math.max(numberOfChanges - 2, 0)), note, punctumContra);
+                noteNowPlaying = punctum.getHarmonicEnvironment().get(Math.min(voiceno, noOfVoices));
             }
 
             MidiHandler.playNoteOnChannel(channelNo, noteNowPlaying);

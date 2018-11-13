@@ -1,5 +1,6 @@
 package common;
 
+import counterpoint.PunctumContraPunctum;
 import counterpoint.Tonality;
 import player.MidiHandler;
 import rhythmengine.PatternLibrary;
@@ -15,13 +16,14 @@ public class Director {
 
     Tonality tonality = new Tonality(list);
     ArrayList<int[]> patternList = new ArrayList<>();
+    PunctumContraPunctum punctum;
 
     public void initOrchestra(int numberOfVoices, int instrument)
     {
         MidiHandler.openMidiHandler();
         for(int i=0;i<=numberOfVoices;i++)
         {
-            MidiHandler.chProgramChange(instrument,i);
+            MidiHandler.chProgramChange(new Random().nextInt(127),i);
         }
     }
 
@@ -39,7 +41,19 @@ public class Director {
         }
         provider.createVoicePool();
         provider.makeTick();
-    }
+        punctum = new PunctumContraPunctum(provider.voices);
+
+     }
+
+     public List<Note> getNotes()
+     {
+         List<Note> notes = new ArrayList<>();
+         for(Voice voice:provider.voices)
+         {
+             voice.getMelos().get(voice.getMelos().size());
+         }
+         return notes;
+     }
 
     public void stopItNow()
     {

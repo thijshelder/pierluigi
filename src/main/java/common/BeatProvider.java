@@ -1,6 +1,8 @@
 package common;
 
 
+import counterpoint.PunctumContraPunctum;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,10 +21,10 @@ public final class BeatProvider
 	{
 		voices.add(voice);
 	}
+
 	public void createVoicePool()
 	{
-		for(Voice voice:voices)
-		{	
+		for(Voice voice:voices) {
 			task.addListener(voice);
 		}
 	}
@@ -30,6 +32,11 @@ public final class BeatProvider
 	public void makeTick()
 	{
 		timer.schedule(task, 0, rhythmengine.TimeSignature.determineSmallestTime(Math.max(70,new Random().nextInt(220)),4,16));
+	}
+
+	public List<Voice> getVoices()
+	{
+		return voices;
 	}
 	
 	public void stopIt()

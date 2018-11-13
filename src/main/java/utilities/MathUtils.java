@@ -29,9 +29,14 @@ public final class MathUtils
 		return in;
 	}
 
+
+	public static double returnSigmoid(double input, double slope)
+	{
+         return 1/(1-Math.pow(Math.E, (-input/slope)));
+	}
+
 	public static boolean isElementOf(int in, int[] collection)
 	{
-		boolean yup = false;
 		for(int i:collection)
 		{
 			if(i==in)
@@ -39,7 +44,7 @@ public final class MathUtils
 				return true;
 			}
 		}
-		return yup;
+		return false;
 
 	}
 }

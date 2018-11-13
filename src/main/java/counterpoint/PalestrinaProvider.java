@@ -1,7 +1,11 @@
 package counterpoint;
 
 import common.Note;
+import musicalintelligence.connection.NeuroConnector;
 import utilities.MathUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static counterpoint.PunctumContraPunctum.consonants;
 
@@ -35,7 +39,7 @@ public class PalestrinaProvider {
     }
 
     public boolean step(Note presentNoteTenor, Note newTenor) {
-        return ((Math.abs(presentNoteTenor.getPitch() - newTenor.getPitch())) <= 2) ;
+        return ((Math.abs(presentNoteTenor.getPitch() - newTenor.getPitch())) <= 2);
     }
 
     public int getNewInterval(Note presentNoteAccomp, Note newTenor) {
@@ -43,7 +47,7 @@ public class PalestrinaProvider {
     }
 
     public Note createMelodicStepMovement(Note presentNoteTenor, Note newTenor, Note note, Tonality tonality) {
-        if (presentNoteTenor.getPitch() - newTenor.getPitch() < 0) {
+        if (presentNoteTenor.getPitch() - newTenor.getPitch() <= 0) {
             note = tonality.stepInterval(note, 1);
         } else {
             note = tonality.stepInterval(note, -1);
@@ -51,16 +55,11 @@ public class PalestrinaProvider {
         return note;
     }
 
-    public Note createHarmonicFilling(Note tenor, Note altus)
+    public int[] createHarmonicFilling(List<Note> notes)
     {
-        Note bassus;
-        if(determineSonance(tenor, altus))
-        {   //determine highest
-            //determine interval after solution
-            //find appropiate note(s) to add
-
-        }
-    return null;
+        NeuroConnector connector = new NeuroConnector(notes);
+        connector.inputToNetwork();
+        return connector.getResult();
     }
 
 }

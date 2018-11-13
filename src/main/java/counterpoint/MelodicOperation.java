@@ -31,6 +31,13 @@ public final class MelodicOperation {
         return wejoz;
     }
 
+    public static Note learnMelodic(Note note, Tonality tonality)
+    {
+
+        return new Note(note.getPitch(), note.getFunction(), note.getDuration());
+    }
+
+
     public static Note randomMelodic(Note note, Tonality tonality) {
         Note noteUit;
         switch (new Random().nextInt(12)) {
