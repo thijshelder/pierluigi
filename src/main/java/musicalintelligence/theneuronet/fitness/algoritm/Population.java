@@ -81,7 +81,7 @@ public class Population
        individuals.forEach(i->
                {
                   score(i, target);
-                  if(i.getRanking()==0.0d)
+                  if(i.getRanking()==0.0000000000d)
                   {
                       solutions.add(i);
                   }

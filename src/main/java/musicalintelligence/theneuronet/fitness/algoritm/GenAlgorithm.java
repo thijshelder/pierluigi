@@ -37,13 +37,7 @@ public class GenAlgorithm
             population.determineFittest();
             generations++;
         }
-        if(!population.solutions.isEmpty())
-        {
-            System.out.println("found perfect solution ! "+ population.solutions.get(0).displayGenome() );
-
-        }
-        System.out.println(population.getFittest().displayGenomeAsString());
-        return population.getFittest();
+       return population.getFittest();
     }
 
     public void addIndividual(Double[] doubles)
