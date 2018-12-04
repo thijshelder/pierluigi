@@ -19,7 +19,7 @@ public class TestScale {
 		
 		List<Note> mynotes = new ArrayList<Note>();
 		
-		Tonality tonality = new Tonality(mynotes);
+		Tonality tonality = Tonality.getInstance(mynotes);
 		
 		
 }

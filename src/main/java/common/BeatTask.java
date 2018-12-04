@@ -17,9 +17,7 @@ public class BeatTask extends TimerTask {
             lister.beInformed((Note) list.get(Math.min(list.indexOf(lister) + 1, list.size() - 1)).informAllOthers());
             lister.contemplateChange(Math.min(list.indexOf(lister), 15));
         }
-        System.out.println("ticks passed : " + offset);
-
-    }
+     }
 
 
     public void addListener(IBeatListener listener) {

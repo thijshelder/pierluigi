@@ -1,10 +1,16 @@
 package counterpoint;
 
+import common.BeatProvider;
 import common.Note;
-import musicalintelligence.connection.NeuroConnector;
+import common.Voice;
+import musicalintelligence.theneuronet.NeuroConnector;
+import musicalintelligence.theneuronet.fitness.algoritm.GenAlgorithm;
+import musicalintelligence.theneuronet.fitness.algoritm.Individual;
+import utilities.ArrayUtils;
 import utilities.MathUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static counterpoint.PunctumContraPunctum.consonants;
@@ -55,11 +61,24 @@ public class PalestrinaProvider {
         return note;
     }
 
-    public int[] createHarmonicFilling(List<Note> notes)
+    public int[] createHarmonicFilling()
     {
-        NeuroConnector connector = new NeuroConnector(notes);
-        connector.inputToNetwork();
-        return connector.getResult();
+        double[] input = BeatProvider.getInstance().getVoices().stream().mapToDouble(v->v.getPitch()).toArray();
+        Double[] realInput = new ArrayUtils().convertToObjectArray(input);
+        GenAlgorithm.getInstance().addIndividual(realInput);
+        Individual best =
+                GenAlgorithm.getInstance()
+                        .engage
+                                (Tonality.getInstance(new ArrayList<Note>()).getTonicaPitch());
+        int[] reValue = new int[best.getGenome().length];
+        int i= 0;
+        for(Double d:best.getGenome())
+        {
+            reValue[i]= d.intValue();
+            i++;
+        }
+        return reValue;
     }
+
 
 }

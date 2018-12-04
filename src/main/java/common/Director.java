@@ -11,10 +11,10 @@ import java.util.Random;
 
 public class Director {
 
-    BeatProvider provider = new BeatProvider();
+    BeatProvider provider =BeatProvider.getInstance();
     List<Note> list = new ArrayList<>();
 
-    Tonality tonality = new Tonality(list);
+    Tonality tonality = Tonality.getInstance(list);
     ArrayList<int[]> patternList = new ArrayList<>();
     PunctumContraPunctum punctum;
 
@@ -23,7 +23,8 @@ public class Director {
         MidiHandler.openMidiHandler();
         for(int i=0;i<=numberOfVoices;i++)
         {
-            MidiHandler.chProgramChange(new Random().nextInt(127),i);
+            MidiHandler.chProgramChange(//new Random().nextInt(127),
+                  6  ,i);// i);
         }
     }
 
@@ -41,7 +42,7 @@ public class Director {
         }
         provider.createVoicePool();
         provider.makeTick();
-        punctum = new PunctumContraPunctum(provider.voices);
+        punctum = new PunctumContraPunctum();
 
      }
 

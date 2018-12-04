@@ -16,7 +16,26 @@ public class Tonality {
     private int lowestNoteValue = 30;
     private int highestNoteValue = 70;
 
-    public Tonality(List<Note> notes)
+    private static Tonality Instance;
+
+    public static Tonality getInstance(List<Note> list)
+    {
+        if(Instance == null)
+        {
+            Instance = new Tonality(list);
+        }
+        return Instance;
+    }
+    public static Tonality getInstance()
+    {
+        if(Instance == null)
+        {
+            Instance = new Tonality(new ArrayList<Note>());
+        }
+        return Instance;
+    };
+
+    private Tonality(List<Note> notes)
     {
         if (notes.size() > 1) {
             setScale(notes);
@@ -26,6 +45,8 @@ public class Tonality {
             createScale(new Note(48, 1, 0));
         }
      }
+
+
 
     public void setScale(List<Note> notes) {
         Iterator itr = notes.iterator();
@@ -62,6 +83,7 @@ public class Tonality {
 
     public void createScale(Note tonica) {
         //creates a major scale and no
+        this.tonica = tonica;
         int lowestTonica = tonica.getPitch() % 12;
         for (int i = lowestTonica; (i <= 88); i = i + 12) {//yes I know this is crappy
             int pos = 1;
@@ -79,7 +101,6 @@ public class Tonality {
     }
 
     public List<Note> getScale()
-
     {
         return scale;
     }
@@ -87,4 +108,10 @@ public class Tonality {
     public Note stepInterval(Note note, int interval) {
         return scale.get(Math.max(lowestNoteValue, Math.min((scale.indexOf(note) + interval), scale.size() - 1)));
     }
+
+    public int getTonicaPitch()
+    {
+        return tonica.getPitch();
+    }
+
 }

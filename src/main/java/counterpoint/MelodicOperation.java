@@ -52,11 +52,12 @@ public final class MelodicOperation {
                 break;
             case 2:
             case 6:
+            case 7:
             case 10:
                 noteUit = tonality.stepInterval(note, -1);
                 break;
             case 3:
-            case 7:
+
                 noteUit = tonality.stepInterval(note, -4);
                 break;
             case 4:

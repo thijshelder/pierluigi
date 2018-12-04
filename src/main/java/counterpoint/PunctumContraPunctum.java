@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 public final class PunctumContraPunctum {
-    static Tonality tonality;
+    Tonality tonality = Tonality.getInstance();
     PalestrinaProvider palestrina;
     List<Voice> voicelist = new ArrayList<>();;
 
@@ -20,11 +20,9 @@ public final class PunctumContraPunctum {
         palestrina = new PalestrinaProvider(tonality);
     }
 
-    public PunctumContraPunctum(List<Voice> voices)
+    public PunctumContraPunctum()
     {
-
-         voicelist.addAll(voices);
-         palestrina = new PalestrinaProvider(tonality);
+        palestrina = new PalestrinaProvider(tonality);
     }
 
     public void initiatePunctum()
@@ -35,18 +33,25 @@ public final class PunctumContraPunctum {
     public List<Note> getHarmonicEnvironment()
     {
         List<Note> myNotes = new ArrayList<>();
-        List<Note> inNotes = new ArrayList<>();
-        voicelist.forEach(v->inNotes.add(v.getMelos().get(0)));
-        Arrays.asList(palestrina.createHarmonicFilling(inNotes)).stream().forEach(i -> myNotes.add(new Note(i[Arrays.asList(palestrina.createHarmonicFilling(inNotes)).indexOf(i)], 0, 0)));
+
+        for(int i:palestrina.createHarmonicFilling())
+        {
+            myNotes.add(new Note( i,  0,0));
+        }
+
+        System.out.println("my notes : ");
+        myNotes.forEach(n->System.out.print(" "+n.getPitch()));
         return myNotes;
     }
 
 
-    public static void setTonality(Tonality tonality) {
-        PunctumContraPunctum.tonality = tonality;
+
+    public void setTonality(Tonality tonality)
+    {
+     this.tonality = tonality;
     }
 
-    public static Note makeCounterpoint(Note note) {
+    public  Note makeCounterpoint(Note note) {
         return tonality.getScale().get(Math.min(Math.max(0, note.getFunction() + ((note.getPitch() / 12) * 7) - consonants[new Random().nextInt(3)] - 1), 55));
     }
 

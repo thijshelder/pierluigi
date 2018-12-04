@@ -29,17 +29,18 @@ public class Voice implements IBeatListener {
     private int voiceno;
 
 
-    public Voice(Tonality tonality, int[] pattern, boolean counterpoint) {
+    public Voice(Tonality tonality, int[] pattern, boolean counterpoint)
+    {
         mytonality = tonality;
         this.pattern = pattern;
         this.counterpoint = counterpoint;
         this.channelNo = Math.min(Voice.noOfVoices,15);
-        PunctumContraPunctum.setTonality(mytonality);
         TonalUtilities.setTonality(mytonality);
         firstNote();
         Voice.setNoOfVoices();
         this.channelNo = noOfVoices;
         name = "voice" + Voice.noOfVoices;
+        voiceno = noOfVoices;
 
     }
 
@@ -107,7 +108,7 @@ public class Voice implements IBeatListener {
             }
             else
             {
-                noteNowPlaying = punctum.getHarmonicEnvironment().get(Math.min(voiceno, noOfVoices));
+                noteNowPlaying = punctum.getHarmonicEnvironment().get(Math.min(voiceno-1, noOfVoices));
             }
 
             MidiHandler.playNoteOnChannel(channelNo, noteNowPlaying);
@@ -131,7 +132,7 @@ public class Voice implements IBeatListener {
         return null;
     }
 
-    public int getPitch() {
+    public Integer getPitch() {
         return noteNowPlaying.getPitch();
     }
 

@@ -16,6 +16,17 @@ public final class BeatProvider
 	Timer timer = new Timer();
 	protected BeatTask task = new BeatTask();
 	List<Voice> voices = new ArrayList<>();
+	static BeatProvider Instance;
+
+	public static BeatProvider getInstance()
+	{
+		if(Instance==null)
+		{
+		    Instance = new BeatProvider();
+		}
+    	return Instance;
+
+	}
 	
 	public void addVoice(Voice voice)
 	{
