@@ -102,14 +102,14 @@ public class Voice implements IBeatListener {
             MidiHandler.muteNoteOnChannel(channelNo, noteNowPlaying);
             Note note = noteNowPlaying;
 
-            if (!counterpoint)
+/*            if (!counterpoint)
             {
                 noteNowPlaying = MelodicOperation.randomMelodic(note, mytonality);
             }
             else
-            {
+            {*/
                 noteNowPlaying = punctum.getHarmonicEnvironment().get(Math.min(voiceno-1, noOfVoices));
-            }
+            //}
 
             MidiHandler.playNoteOnChannel(channelNo, noteNowPlaying);
             melos.add(noteNowPlaying);

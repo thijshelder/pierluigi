@@ -39,8 +39,7 @@ public final class PunctumContraPunctum {
             myNotes.add(new Note( i,  0,0));
         }
 
-        System.out.println("my notes : ");
-        myNotes.forEach(n->System.out.print(" "+n.getPitch()));
+
         return myNotes;
     }
 

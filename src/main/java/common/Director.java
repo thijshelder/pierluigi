@@ -23,8 +23,8 @@ public class Director {
         MidiHandler.openMidiHandler();
         for(int i=0;i<=numberOfVoices;i++)
         {
-            MidiHandler.chProgramChange(//new Random().nextInt(127),
-                  6  ,i);// i);
+            MidiHandler.chProgramChange(new Random().nextInt(127),
+                   i);// i);
         }
     }
 
