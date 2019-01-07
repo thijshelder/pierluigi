@@ -2,7 +2,7 @@ package rhythmengine;
 
 import java.util.Random;
 
-public final class RhythmEngine
+final class RhythmEngine
 
 {
 	private RhythmEngine()

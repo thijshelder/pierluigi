@@ -1,6 +1,6 @@
 package common;
 
-public interface IBeatListener 
+interface IBeatListener
 {
 	void contemplateChange(int channelNo);
 	

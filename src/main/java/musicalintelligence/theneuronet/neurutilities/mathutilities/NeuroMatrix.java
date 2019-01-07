@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class NeuroMatrix
 {
-    private Map<Integer,Double[]> matrix = new HashMap<>();
+    private final Map<Integer,Double[]> matrix = new HashMap<>();
 
     public NeuroMatrix(int size)
     {
@@ -19,12 +19,12 @@ public class NeuroMatrix
         return matrix;
     }
 
-    public Double[] getMappedRows(int index)
+    private Double[] getMappedRows(int index)
     {
         return matrix.get(index);
     }
 
-    public NeuroMatrix(Double[][] args)
+    private NeuroMatrix(Double[][] args)
     {
         for(int i = 0;i<args.length; i++)
         {

@@ -5,22 +5,22 @@ import java.util.List;
 
 public class GenAlgorithm
 {
-    Population population;
-    int generations =0;
-    int maxgenerations = 200;
+    private Population population;
+    private int generations =0;
+    private final int maxgenerations = 500;
     private static GenAlgorithm Instance;
 
     public static GenAlgorithm getInstance()
     {
         if(Instance==null)
         {
-            Instance = new GenAlgorithm(200);
+            Instance = new GenAlgorithm(1000);
         }
         return Instance;
     }
     private GenAlgorithm(int populationSize)
     {
-        population = new Population(populationSize,8, 78.0);
+        population = new Population(populationSize,10, 78.0);
     }
 
 
@@ -29,7 +29,7 @@ public class GenAlgorithm
 
     public Individual engage(int target )
     {
-       population.individuals.forEach(i->i.initiate());
+       population.individuals.forEach(Individual::initiate);
        while(generations<maxgenerations&&population.solutions.isEmpty())
         {
             population.setTarget(target);
@@ -52,6 +52,6 @@ public class GenAlgorithm
         {
             indList.add(new Individual(d));
         }
-       population = new Population(indList, 88.0);
+       population = new Population(indList, 78.0);
     }
 }

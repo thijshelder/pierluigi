@@ -3,17 +3,12 @@ package counterpoint;
 import common.BeatProvider;
 import common.Note;
 import common.Voice;
-import musicalintelligence.theneuronet.NeuroConnector;
 import musicalintelligence.theneuronet.fitness.algoritm.GenAlgorithm;
 import musicalintelligence.theneuronet.fitness.algoritm.Individual;
 import utilities.ArrayUtils;
 import utilities.MathUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static counterpoint.PunctumContraPunctum.consonants;
 
 /**
  * Created by Thijs on 28-9-2017.
@@ -21,12 +16,12 @@ import static counterpoint.PunctumContraPunctum.consonants;
 public class PalestrinaProvider {
 
     int noOfVOices;
-    Note presentNoteTenor;
-    Note presentNoteAccomp;
-    int presentInterval;
+    private Note presentNoteTenor;
+    private Note presentNoteAccomp;
+    private int presentInterval;
     Note newTenor;
     boolean isPerfect;
-    Tonality tonality;
+    private final Tonality tonality;
 
     public PalestrinaProvider(Tonality tonality) {
         this.tonality = tonality;
@@ -63,13 +58,13 @@ public class PalestrinaProvider {
 
     public int[] createHarmonicFilling()
     {
-        double[] input = BeatProvider.getInstance().getVoices().stream().mapToDouble(v->v.getPitch()).toArray();
+        double[] input = BeatProvider.getInstance().getVoices().stream().mapToDouble(Voice::getPitch).toArray();
         Double[] realInput = new ArrayUtils().convertToObjectArray(input);
         GenAlgorithm.getInstance().addIndividual(realInput);
         Individual best =
                 GenAlgorithm.getInstance()
                         .engage
-                                (Tonality.getInstance(new ArrayList<Note>()).getTonicaPitch());
+                                (Tonality.getInstance(new ArrayList<>()).getTonicaPitch());
         int[] reValue = new int[best.getGenome().length];
         int i= 0;
         for(Double d:best.getGenome())

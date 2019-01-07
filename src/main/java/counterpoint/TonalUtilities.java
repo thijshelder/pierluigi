@@ -5,8 +5,8 @@ import common.Note;
 
 public final class TonalUtilities
 {
-	static final String[] noteNames = {"C", "D", "E", "F", "G", "A", "B" };
-	static Tonality tonality; 
+	private static final String[] noteNames = {"C", "D", "E", "F", "G", "A", "B" };
+	private static Tonality tonality;
 
 	private TonalUtilities()
 	{}

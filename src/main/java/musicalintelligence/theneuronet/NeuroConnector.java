@@ -7,9 +7,9 @@ import java.util.Arrays;
 
 public class NeuroConnector
 {
-    NetWork work;
-    Double[] doubles;
-    static NeuroConnector Instance;
+    private final NetWork work;
+    private final Double[] doubles;
+    private static NeuroConnector Instance;
 
     public static NeuroConnector getInstance(int layers, int arraySize)
     {

@@ -8,12 +8,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Tonality {
-    static List<Note> scale = new ArrayList<>();
+    private static final List<Note> scale = new ArrayList<>();
 
     private Note tonica;
-    private Note dominant;
-    private Note subDominant;
-    private int lowestNoteValue = 30;
     private int highestNoteValue = 70;
 
     private static Tonality Instance;
@@ -30,10 +27,10 @@ public class Tonality {
     {
         if(Instance == null)
         {
-            Instance = new Tonality(new ArrayList<Note>());
+            Instance = new Tonality(new ArrayList<>());
         }
         return Instance;
-    };
+    }
 
     private Tonality(List<Note> notes)
     {
@@ -48,12 +45,13 @@ public class Tonality {
 
 
 
-    public void setScale(List<Note> notes) {
+    private void setScale(List<Note> notes) {
         Iterator itr = notes.iterator();
         //leave this for later
         for (Note note : notes) {
             int p = note.getPitch();
-            while (itr.hasNext()) {
+            while (itr.hasNext())
+            {
                 Note note2 = (Note) itr.next();
                 int p2 = note2.getPitch();
                 if (p < p2) {
@@ -68,8 +66,8 @@ public class Tonality {
         //make the note tonica
         this.tonica = note;
         tonica.setFunction(1);
-        this.dominant = new Note(note.getPitch() + 7, 5, 0);
-        this.subDominant = new Note(note.getPitch() + 5, 4, 0);
+        Note dominant = new Note(note.getPitch() + 7, 5, 0);
+        Note subDominant = new Note(note.getPitch() + 5, 4, 0);
 
         switch (mode) {
             case MAJOR:
@@ -81,7 +79,7 @@ public class Tonality {
 
     }
 
-    public void createScale(Note tonica) {
+    private void createScale(Note tonica) {
         //creates a major scale and no
         this.tonica = tonica;
         int lowestTonica = tonica.getPitch() % 12;
@@ -106,6 +104,7 @@ public class Tonality {
     }
 
     public Note stepInterval(Note note, int interval) {
+        int lowestNoteValue = 30;
         return scale.get(Math.max(lowestNoteValue, Math.min((scale.indexOf(note) + interval), scale.size() - 1)));
     }
 

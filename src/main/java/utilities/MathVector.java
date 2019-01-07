@@ -1,6 +1,6 @@
 package utilities;
 
-public class MathVector
+class MathVector
 {
 
 }

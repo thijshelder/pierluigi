@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Director {
+class Director {
 
-    BeatProvider provider =BeatProvider.getInstance();
-    List<Note> list = new ArrayList<>();
+    private final BeatProvider provider =BeatProvider.getInstance();
+    private final List<Note> list = new ArrayList<>();
 
-    Tonality tonality = Tonality.getInstance(list);
+    private final Tonality tonality = Tonality.getInstance(list);
     ArrayList<int[]> patternList = new ArrayList<>();
-    PunctumContraPunctum punctum;
+    private PunctumContraPunctum punctum;
 
     public void initOrchestra(int numberOfVoices, int instrument)
     {

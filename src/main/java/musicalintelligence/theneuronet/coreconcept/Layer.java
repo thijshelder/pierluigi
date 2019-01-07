@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Layer
+class Layer
 {
-    static int layerIndex =0;
-    int index;
-    List<Neuron> neurons = new ArrayList<>();;
+    private static int layerIndex =0;
+    private final int index;
+    final List<Neuron> neurons = new ArrayList<>();
+
     public Layer(int size, int neuronInputs)
     {
         for(int i=0; i<size;i++)
@@ -53,7 +54,7 @@ public class Layer
         return index;
     }
 
-    public double calculateFitness(Double maxvalue)
+    private double calculateFitness(Double maxvalue)
     {
      GenAlgorithm algorithm = GenAlgorithm.getInstance();
      List<Double[]> genomes = new ArrayList<>();

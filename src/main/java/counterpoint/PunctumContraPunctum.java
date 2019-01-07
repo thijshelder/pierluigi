@@ -1,20 +1,18 @@
 package counterpoint;
 
-import common.Director;
 import common.Note;
 import common.Voice;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public final class PunctumContraPunctum {
-    Tonality tonality = Tonality.getInstance();
-    PalestrinaProvider palestrina;
-    List<Voice> voicelist = new ArrayList<>();;
+    private Tonality tonality = Tonality.getInstance();
+    private final PalestrinaProvider palestrina;
+    List<Voice> voicelist = new ArrayList<>();
 
-    static int[] consonants = {2, 3, 4, 5};
+    private static final int[] consonants = {2, 3, 4, 5};
 
     public PunctumContraPunctum(Tonality tonality) {
         palestrina = new PalestrinaProvider(tonality);

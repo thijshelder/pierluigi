@@ -4,12 +4,12 @@ import java.util.Arrays;
 
 public class MathCalc
 {
-    public double funcCalc(double a, double b, MathFunc c)
+    private double funcCalc(double a, double b, MathFunc c)
     {
         return c.calculate(a, b);
     }
 
-    public MathFunc sigmoid = (a,b) -> 1/(1+(Math.pow(Math.E, -a)));
+    private final MathFunc sigmoid = (a, b) -> 1/(1+(Math.pow(Math.E, -a)));
 
     public double returnSigmoid(double a,double b)
     {

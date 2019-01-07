@@ -1,6 +1,6 @@
 package common;
 
-public class Program
+class Program
 {
 	public static void main(String[] args)
 	{

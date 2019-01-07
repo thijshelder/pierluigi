@@ -6,9 +6,9 @@ import musicalintelligence.theneuronet.neurutilities.mathutilities.NeuroMatrix;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class Neuron {
-    double output = 0.0;
-    NeuroMatrix matrix;
+class Neuron {
+    private double output = 0.0;
+    private final NeuroMatrix matrix;
 
     public Neuron(int size)
     {
@@ -28,12 +28,10 @@ public class Neuron {
     public void displayMatrix()
     {
         matrix.getNeuroMatrix().forEach((k, v) ->
-        {
-            System.out.println(Arrays.toString(v));
-        });
+                System.out.println(Arrays.toString(v)));
     }
 
-     public Double[] activate()
+     public void activate()
     {
 
         matrix.getNeuroMatrix().forEach((k,v)->
@@ -41,7 +39,7 @@ public class Neuron {
             output += MathCalc.product(v);
             v[1] = new MathCalc().returnSigmoid(output, 1.0);
         });
-        return matrix.getRowsAsList().stream().max(Comparator.comparing(i->i[1])).orElseThrow(NoSuchFieldError::new);
+        matrix.getRowsAsList().stream().max(Comparator.comparing(i -> i[1])).orElseThrow(NoSuchFieldError::new);
     }
 
     public Double getOutPut()

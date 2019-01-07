@@ -1,8 +1,6 @@
 package common;
 
 
-import counterpoint.PunctumContraPunctum;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,10 +11,10 @@ import java.util.Timer;
 
 public final class BeatProvider 
 {
-	Timer timer = new Timer();
-	protected BeatTask task = new BeatTask();
-	List<Voice> voices = new ArrayList<>();
-	static BeatProvider Instance;
+	private final Timer timer = new Timer();
+	private final BeatTask task = new BeatTask();
+	final List<Voice> voices = new ArrayList<>();
+	private static BeatProvider Instance;
 
 	public static BeatProvider getInstance()
 	{

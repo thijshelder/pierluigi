@@ -4,8 +4,8 @@ import java.util.*;
 
 public class BeatTask extends TimerTask {
 
-    int offset = 0;
-    List<IBeatListener> list = new ArrayList<>();
+    private int offset = 0;
+    private final List<IBeatListener> list = new ArrayList<>();
 
     public BeatTask() {
         super();

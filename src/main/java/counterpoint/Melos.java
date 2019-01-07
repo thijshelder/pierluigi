@@ -5,7 +5,7 @@ import common.Note;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Melos {
+class Melos {
 
     public List<Note> noteList = new ArrayList<>();
 }

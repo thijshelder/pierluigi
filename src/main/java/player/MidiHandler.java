@@ -13,8 +13,8 @@ import javax.sound.midi.Synthesizer;
 
 public final class MidiHandler
 {
-	static MidiDevice synth = null;
-	static MidiChannel[] channels = null;
+	private static MidiDevice synth = null;
+	private static MidiChannel[] channels = null;
 
 	private MidiHandler()
 	{}

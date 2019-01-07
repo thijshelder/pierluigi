@@ -1,7 +1,5 @@
 package fixtures;
 
-import static org.junit.Assert.*;
-
 import common.Note;
 import counterpoint.Tonality;
 import org.junit.Test;
@@ -17,7 +15,7 @@ public class TestScale {
 	@Test
 	public void test() {
 		
-		List<Note> mynotes = new ArrayList<Note>();
+		List<Note> mynotes = new ArrayList<>();
 		
 		Tonality tonality = Tonality.getInstance(mynotes);
 		

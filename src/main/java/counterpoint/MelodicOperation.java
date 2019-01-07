@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public final class MelodicOperation {
+final class MelodicOperation {
     public List<Note> createRetrogade(List<Note> melos) {
         List<Note> solem = new ArrayList<>();
         for (int i = 0; i < melos.size(); i++) {

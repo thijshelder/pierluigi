@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class NetWork {
-    List<Layer> layers = new ArrayList<>();
+    private final List<Layer> layers = new ArrayList<>();
 
     public NetWork(int numberOfLayers, int inputArraySize) {
         for (int i = 0; i < numberOfLayers; i++) {
@@ -25,6 +25,6 @@ public class NetWork {
     }
 
     public Double[] getOutPut() {
-        return layers.get(layers.size() - 1).neurons.stream().max(Comparator.comparing(d -> d.getOutPut())).map(n -> n.getValues()).get();
+        return layers.get(layers.size() - 1).neurons.stream().max(Comparator.comparing(Neuron::getOutPut)).map(Neuron::getValues).get();
     }
 }

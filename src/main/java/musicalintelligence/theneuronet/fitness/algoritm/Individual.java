@@ -10,7 +10,7 @@ import java.util.Random;
 public class Individual implements Comparable<Individual>
 {
      private double ranking =0.0;
-     public static double maxvalue = 88;
+     public static final double maxvalue = 88;
      private Double[] genome;
 
      public Individual(int size)
@@ -43,13 +43,11 @@ public class Individual implements Comparable<Individual>
          Double[] part2 = new Double[genome.length - index];
          System.arraycopy(genome, 0, part1, 0, part1.length);
          System.arraycopy(genome, part1.length, part2, 0, part2.length);
-         Double[][] splittedGenome = new Double[][]{part1, part2};
-         return splittedGenome;
+         return new Double[][]{part1, part2};
      }
 
      public void initiate()
      {
-
             for(int i=0;i<genome.length;i++)
             {
                 genome[i]=Math.max(0, Math.min(new Random().nextDouble()*maxvalue, maxvalue));
@@ -58,24 +56,24 @@ public class Individual implements Comparable<Individual>
 
      public String displayGenome()
      {
-         String genomeString = "";
+         StringBuilder genomeString = new StringBuilder();
          for(Double d:getGenome())
          {
-            genomeString +=(" "+ d.toString());
+            genomeString.append(" ").append(d.toString());
 
          }
-         return  genomeString;
+         return genomeString.toString();
      }
 
      public String displayGenomeAsString()
      {
-         String genomeString = "";
+         StringBuilder genomeString = new StringBuilder();
          for(Integer d: Arrays.asList(getGenome()).stream().mapToInt(d->(int)Math.round(d)).toArray())
          {
-             genomeString +=(" "+ d.toString());
+             genomeString.append(" ").append(d.toString());
 
          }
-         return  genomeString;
+         return genomeString.toString();
      }
 
      public double genomeSum()
@@ -121,7 +119,7 @@ public class Individual implements Comparable<Individual>
       return (int) getRanking()*100- (int) anotherIndividual.getRanking()*100;
      }
 
-     public static Comparator<Individual> individualsSorter = (i1, i2) -> i1.compareTo(i2);
+     public static Comparator<Individual> individualsSorter = Individual::compareTo;
 
 
 }

@@ -1,6 +1,6 @@
 package common;
 
-public class NoteValues 
+class NoteValues
 {
 
 }

@@ -14,9 +14,9 @@ public final class MathUtils
 
 	public static int getSumOfArray(int[] intarraylist) {
 		int arrayLength = 0;
-		for (int i = 0; i < intarraylist.length; i++) {
-			arrayLength = arrayLength + intarraylist[i];
-		}
+        for (int anIntarraylist : intarraylist) {
+            arrayLength = arrayLength + anIntarraylist;
+        }
 		return arrayLength;
 	}
 

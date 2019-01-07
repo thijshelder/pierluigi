@@ -6,11 +6,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Population
+class Population
 {
-    List<Individual> individuals = new ArrayList<>();
-    List<Individual> solutions = new ArrayList<>();
-    int target = 1;
+    final List<Individual> individuals = new ArrayList<>();
+    final List<Individual> solutions = new ArrayList<>();
+    private int target = 1;
     /* we are going to do something rather random: we say that fitness equals "the numbers in the genome added being closest to 24.
     / while we know that is not something useful, it will allow us to do some experimenting.
     */
@@ -20,7 +20,7 @@ public class Population
         {
             individuals.add(new Individual(genomeSize));
         }
-        individuals.forEach(i->i.initiate());
+        individuals.forEach(Individual::initiate);
     }
 
     public Population(List<Individual> preExisting, Double maxvalue)
@@ -29,7 +29,7 @@ public class Population
         individuals.addAll(preExisting);
     }
 
-    public List<Individual> sexyTime(Individual anIndividual, Individual anotherIndividual){
+    private List<Individual> sexyTime(Individual anIndividual, Individual anotherIndividual){
         List<Individual> newIndividuals = new ArrayList<>();
 
         if(anIndividual.getLength()==anotherIndividual.getLength())
@@ -57,8 +57,8 @@ public class Population
         List<Individual> theSubOptimals = individuals.subList(2,individuals.size());
         List<Individual> hombres = theSubOptimals.subList(0, theSubOptimals.size()/2);
         List<Individual> mujeres = theSubOptimals.subList(theSubOptimals.size()/2, theSubOptimals.size());
-        hombres.sort(Comparator.comparing(i->i.getRanking()));
-        mujeres.sort(Comparator.comparing(i->i.getRanking()));
+        hombres.sort(Comparator.comparing(Individual::getRanking));
+        mujeres.sort(Comparator.comparing(Individual::getRanking));
 
         hombres.stream().forEach(i-> {
             List<Individual> indList = sexyTime(i, mujeres.get(hombres.indexOf(i)));
@@ -97,7 +97,7 @@ public class Population
 
 
 
-    public void score(Individual individual, int target) {
+    private void score(Individual individual, int target) {
         // 0 is best
 
         double score = new ScoreUtil().mayRepresentAValidChord(Arrays.asList(individual.getGenome()).stream().mapToInt(d->(int)Math.round(d)).toArray());

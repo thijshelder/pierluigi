@@ -4,9 +4,9 @@ public class TimeSignature
 
 {
 	int tempo;
-	static int counter;
-	static int denominator;
-	static int smallestNoteValue;
+	private static int counter;
+	private static int denominator;
+	private static int smallestNoteValue;
 	
 	public static int determineSmallestTime(int tempo, int denominator, int smallestNoteValue)// a method we might use to find out what the timer timeout must be.
 	{//lots of  intelligent code here
@@ -24,7 +24,7 @@ public class TimeSignature
 		return smallestNoteValue;
 	}
 	
-	public static void setSmallestNoteValue(int i)
+	private static void setSmallestNoteValue(int i)
 	{
 		smallestNoteValue = i;
 	}

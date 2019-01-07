@@ -8,9 +8,9 @@ import java.util.Map;
 /*This class holds doubles to create a vector.
 *
  */
-public class NeuroVector
+class NeuroVector
 {
-    private Map<Integer,Double> vector = new HashMap<>();
+    private final Map<Integer,Double> vector = new HashMap<>();
 
     public NeuroVector(Double[] args)
     {
@@ -34,12 +34,12 @@ public class NeuroVector
         throw new VectorNotEqualSizeException("Cannot calculate inproduct of unequal vectors");
     }
 
-       public Double getRow(int index)
+       private Double getRow(int index)
     {
          return vector.get(index);
     }
 
-      public int getVertVectorSize()
+      private int getVertVectorSize()
     {
         return vector.size();
     }
